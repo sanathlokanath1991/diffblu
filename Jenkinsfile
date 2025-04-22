@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout from GitHub') {
             steps {
-                git(credentialsId: 'github-credentials', // Replace with your credentials ID
+                git(credentialsId: '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', // Replace with your credentials ID
                     url: 'https://github.com/sanathlokanath1991/diffblu.git',     // Replace with your repo URL
                     branch: 'main')                       // Replace with your branch
             }
