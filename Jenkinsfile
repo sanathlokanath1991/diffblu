@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'  //  Corrected tool name.  Must match EXACTLY what's in Jenkins.
+        maven 'Maven3.9.0'  //  Corrected tool name.  Must match EXACTLY what's in Jenkins.
         // diffblueCover 'DiffblueCoverCLI' // Remove or comment out if not a standard Jenkins tool
     }
     stages {
