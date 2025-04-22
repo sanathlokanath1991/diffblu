@@ -5,11 +5,17 @@ pipeline {
         maven 'Maven 3.8.1'  // Replace with your Maven installation name in Jenkins
         diffblueCover 'DiffblueCoverCLI' // Replace with your Diffblue Cover CLI tool name
     }
+    stages {
+        stage('Clean Workspace') {  // Add this stage
+            steps {
+                cleanWs()
+            }
+        }
 
     stages {
         stage('Checkout from GitHub') {
             steps {
-                git(credentialsId: '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', // Replace with your credentials ID
+                git(credentialsId: 'github-credentials', // Replace with your credentials ID
                     url: 'https://github.com/sanathlokanath1991/diffblu.git',     // Replace with your repo URL
                     branch: 'main')                       // Replace with your branch
             }
