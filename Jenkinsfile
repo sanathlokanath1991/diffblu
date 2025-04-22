@@ -2,22 +2,20 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.8.1'  // Replace with your Maven installation name in Jenkins
-        diffblueCover 'DiffblueCoverCLI' // Replace with your Diffblue Cover CLI tool name
+        maven 'Maven'  //  Corrected tool name.  Must match EXACTLY what's in Jenkins.
+        // diffblueCover 'DiffblueCoverCLI' // Remove or comment out if not a standard Jenkins tool
     }
     stages {
-        stage('Clean Workspace') {  // Add this stage
+        stage('Clean Workspace') {
             steps {
                 cleanWs()
             }
         }
-
-    stages {
         stage('Checkout from GitHub') {
             steps {
-                git(credentialsId: 'github-credentials', // Replace with your credentials ID
-                    url: 'https://github.com/sanathlokanath1991/diffblu.git',     // Replace with your repo URL
-                    branch: 'main')                       // Replace with your branch
+                git(credentialsId: 'github-credentials',
+                    url: 'https://github.com/sanathlokanath1991/diffblu.git',
+                    branch: 'main')
             }
         }
         stage('Build') {
@@ -32,13 +30,17 @@ pipeline {
         }
         stage('Publish Coverage Report') {
             steps {
-                publishHTML([allowMissing: true,  // Changed to true to avoid build failure if the report is not generated
-                             alwaysLinkToLastBuild: true,
-                             keepAll: false,
-                             reportDir: 'coverage-report', // Corrected to the actual directory name
-                             reportFiles: 'index.html',
-                             reportName: 'Diffblue Coverage Report',
-                             title: 'Diffblue Coverage Report'])
+                publishHTML(
+                    [
+                        allowMissing: true,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: false,
+                        reportDir: 'coverage-report',
+                        reportFiles: 'index.html',
+                        reportName: 'Diffblue Coverage Report',
+                        title: 'Diffblue Coverage Report',
+                    ]
+                )
             }
         }
         stage('Publish JUnit Report') {
@@ -52,5 +54,4 @@ pipeline {
             cleanWs()
         }
     }
-}
 }
